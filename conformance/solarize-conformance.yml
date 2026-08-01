@@ -1,0 +1,31 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from the documented Solarize API behavior at
+  https://api-docs.solarize.energy (REST/JSON, HTTPS-only, JWT bearer,
+  offset/limit pagination). No published compliance certifications were found,
+  so no Compliance pointer is emitted.
+standards:
+  - id: rest
+    conforms: true
+    evidence: Resource-oriented URLs, standard HTTP verbs and status codes, JSON responses.
+  - id: json
+    conforms: true
+    evidence: All requests and responses are JSON-encoded.
+  - id: https-only
+    conforms: true
+    evidence: Docs state plain-HTTP calls fail; HTTPS is required for all requests.
+  - id: jwt-bearer
+    conforms: true
+    evidence: Authorization Bearer JWT access tokens (RFC 7519 / RFC 6750 style).
+  - id: oauth2
+    conforms: false
+    evidence: Uses a custom api_token grant exchange, not standard OAuth2 authorization flows or scopes.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: No application/problem+json error envelope documented.
+  - id: pagination-offset
+    conforms: true
+    evidence: All list endpoints use limit/offset with a data/total response shape.

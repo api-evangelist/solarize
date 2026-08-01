@@ -1,0 +1,37 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://api-docs.solarize.energy/api-compatibility and
+  https://solarize.statuspage.io — versioning/compatibility policy, planned
+  breaking changes, and the public status page.
+versioning:
+  scheme: unversioned
+  path_prefix: /v1
+  docs: https://api-docs.solarize.energy/api-compatibility
+  notes: >-
+    The Solarize API is unversioned. Breaking changes are announced by email to
+    all API key holders 4 weeks in advance, with a detailed migration guide.
+    Breaking changes include: altered resource URLs; removed/renamed response
+    properties or request parameters; deleted enum values; an optional parameter
+    becoming required; and changed HTTP status codes. Additive changes
+    (new resources, parameters, properties, enum values) ship without notice.
+deprecation:
+  policy_url: https://api-docs.solarize.energy/api-compatibility
+  notice_period: 4 weeks by email to API key holders
+  sunset_header: false
+  notes: >-
+    Planned removals/replacements are tracked in the "Upcoming Breaking Changes"
+    section of the API Compatibility page rather than via RFC 8594
+    Sunset/Deprecation headers.
+  upcoming:
+    - area: Payments
+      status: planned
+      effective_hint: '2026-07-06'
+      change: >-
+        The `lockedAt` property is deprecated in payment creation request bodies
+        and already only accepts null; locking is managed by the platform.
+status_page: https://solarize.statuspage.io
+sla:
+  url: null
+  public_uptime_target: null
+deprecated_operations: []

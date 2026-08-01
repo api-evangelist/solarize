@@ -1,0 +1,47 @@
+generated: '2026-07-21'
+method: searched
+source: https://api-docs.solarize.energy/authentication
+docs: https://api-docs.solarize.energy/authentication
+description: >-
+  The Solarize API authenticates requests with short-lived JSON Web Tokens
+  (JWT). A caller first mints a long-lived API Token inside the Solarize app
+  (Settings), then exchanges it at the token endpoint for a Bearer access token.
+  API Tokens carry the same permissions as the user that created them; there is
+  no separate OAuth2 scope surface.
+summary:
+  types: [http]
+  http_scheme: bearer
+  bearer_format: JWT
+  api_key_in: []
+  oauth2_flows: []
+token_endpoint:
+  url: https://api.solarize.energy/v1/oauth
+  method: POST
+  content_type: application/json
+  grant_type: api_token
+  request_example: '{"grantType":"api_token","token":"<API_TOKEN>"}'
+  response_fields:
+    - accessToken
+    - refreshToken
+    - clientId
+    - tokenType   # Bearer
+    - expiresIn   # seconds, e.g. 3599
+    - createdAt
+schemes:
+  - name: apiToken
+    type: prerequisite
+    detail: >-
+      A long-lived API Token generated in the Solarize app. Exchanged (not sent
+      directly on resource requests) at POST /v1/oauth for a JWT access token.
+      Inherits the permissions of the generating user.
+  - name: bearerAuth
+    type: http
+    scheme: bearer
+    bearer_format: JWT
+    detail: >-
+      All resource requests send `Authorization: Bearer <accessToken>` over
+      HTTPS. Plain-HTTP and unauthenticated requests fail. Access tokens expire
+      (expiresIn ~3599s) and are renewed via the refresh token.
+notes:
+  - Calls made over plain HTTP fail; HTTPS is required.
+  - Access tokens are short-lived; use the returned refreshToken to obtain a new JWT.

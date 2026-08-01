@@ -1,0 +1,85 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://api-docs.solarize.energy/ — the cross-cutting request/response
+  conventions that apply to every Solarize endpoint (authentication, pagination,
+  rate limiting, versioning, custom attributes, webhooks).
+description: >-
+  How the Solarize meter-to-cash REST API behaves across every operation:
+  authentication style, pagination, rate-limit signaling, versioning /
+  compatibility policy, custom attributes, and the outgoing-webhook event
+  envelope. Solarize documents NO idempotency-key mechanism, so no idempotency
+  contract is asserted here.
+base_url: https://api.solarize.energy/v1
+api_style: REST over HTTPS, JSON request and response bodies, standard HTTP verbs and status codes
+
+authentication:
+  scheme: Bearer JWT obtained by exchanging an app-generated API Token at POST /v1/oauth
+  docs: https://api-docs.solarize.energy/authentication
+  detail: authentication/solarize-authentication.yml
+
+idempotency:
+  supported: false
+  notes: >-
+    Solarize publishes no idempotency-key header or documented idempotency
+    contract. Retries of write operations are not de-duplicated by the API.
+
+pagination:
+  style: offset
+  scope: all list endpoints
+  request_params:
+    limit: Maximum items per page (e.g. ?limit=25); defaults to a per-endpoint value.
+    offset: Number of items to skip before returning data (e.g. ?offset=50); default 0.
+  response_fields:
+    data: Array of the paginated items.
+    total: Total number of items available in the dataset.
+  notes: An offset beyond the total returns an empty data array.
+  docs: https://api-docs.solarize.energy/pagination
+
+rate_limiting:
+  limit: 600 requests per minute
+  window: rolling 1-minute
+  scope: client
+  detail: rate-limits/solarize-rate-limits.yml
+  docs: https://api-docs.solarize.energy/rate-limits
+
+versioning:
+  scheme: unversioned
+  path_prefix: /v1
+  compatibility_policy: >-
+    The API is unversioned. Breaking changes are announced by email to all API
+    key holders 4 weeks in advance with a migration guide; additive changes ship
+    without notice. Clients must tolerate new response properties and enum values.
+  detail: lifecycle/solarize-lifecycle.yml
+  docs: https://api-docs.solarize.energy/api-compatibility
+
+custom_attributes:
+  supported: true
+  entities: [Site, Customer, Meter, Contract, Price Component]
+  envelope: customAttributes object on the entity
+  data_types_note: >-
+    An entity always includes all defined custom-attribute keys; unset values
+    default to null.
+  docs: https://api-docs.solarize.energy/custom-attributes
+
+webhooks:
+  supported: true
+  direction: outgoing
+  configuration: Notifications section under the Solarize app settings (endpoint + optional headers + event selection)
+  envelope_fields: [id, type, userId, timestamp, accountId, siteIds, data]
+  detail: asyncapi/solarize-webhooks-asyncapi.yml
+  docs: https://api-docs.solarize.energy/outgoing-webhooks
+
+error_envelope:
+  format: standard HTTP status codes; JSON body
+  notes: >-
+    Docs state the API "uses standard HTTP response codes"; a structured
+    RFC 9457 problem+json envelope is not documented and no error-code registry
+    is published.
+
+cross_links:
+  authentication: authentication/solarize-authentication.yml
+  lifecycle: lifecycle/solarize-lifecycle.yml
+  rate_limits: rate-limits/solarize-rate-limits.yml
+  webhooks: asyncapi/solarize-webhooks-asyncapi.yml
+  data_model: data-model/solarize-data-model.yml

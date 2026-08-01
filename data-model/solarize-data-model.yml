@@ -1,0 +1,51 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  Entity registry taken verbatim from the Solarize API Compatibility page
+  (https://api-docs.solarize.energy/api-compatibility) and the documented REST
+  resources under https://api.solarize.energy/v1. No OpenAPI is published, so
+  the entity list is authoritative but relationships are captured only where the
+  docs give explicit evidence (webhook siteIds, contract-meters join, custom
+  attributes, invoice line-items).
+docs: https://api-docs.solarize.energy/api-reference
+notation: >-
+  relationships use has_one / has_many / belongs_to with the `via` field or join
+  resource; only evidence-backed relationships are asserted.
+entities:
+  - {name: Account, resource: /v1/accounts, domain: core, description: A Solarize account (also referenced as Global Accounts).}
+  - {name: Site, resource: /v1/sites, domain: core, description: A physical site; most entities are scoped to one or more sites.}
+  - {name: Customer, resource: /v1/customers, domain: core, description: An energy customer being billed.}
+  - {name: User, resource: /v1/users, domain: core, description: A Solarize app user; triggers webhook events.}
+  - {name: Meter, resource: /v1/meters, domain: metering, description: A physical or virtual meter.}
+  - {name: MeterBalancingSetting, resource: /v1/meter-balancing-settings, domain: metering, description: Balancing configuration for meters.}
+  - {name: Measurement, resource: /v1/measurements, domain: metering, description: Submitted measurement data.}
+  - {name: Reading, resource: /v1/readings, domain: metering, description: Meter reading data point.}
+  - {name: Contract, resource: /v1/contracts, domain: contracts, description: An energy supply contract.}
+  - {name: ContractMeter, resource: /v1/contract-meters, domain: contracts, description: Join between a contract and a meter.}
+  - {name: ElectricityProduct, resource: /v1/electricity-products, domain: products, description: A configurable electricity product.}
+  - {name: PriceComponentGroup, resource: /v1/price-component-groups, domain: pricing, description: A group of price components.}
+  - {name: PriceComponent, resource: /v1/price-components, domain: pricing, description: A single price component.}
+  - {name: Price, resource: /v1/prices, domain: pricing, description: A concrete price.}
+  - {name: TaxRate, resource: /v1/tax-rates, domain: pricing, description: A tax rate applied in billing.}
+  - {name: Invoice, resource: /v1/invoices, domain: billing, description: A generated invoice / bill.}
+  - {name: LineItem, resource: /v1/line-items, domain: billing, description: A line item on an invoice.}
+  - {name: InvoiceTemplate, resource: /v1/invoice-templates, domain: billing, description: A template for rendering invoices.}
+  - {name: Template, resource: /v1/templates, domain: billing, description: A reusable document/report template.}
+  - {name: Payment, resource: /v1/payments, domain: payments, description: A payment record.}
+  - {name: PaymentMethod, resource: /v1/payment-methods, domain: payments, description: A stored payment method.}
+  - {name: PrepaymentRequest, resource: /v1/prepayment-requests, domain: payments, description: A request for prepayment.}
+  - {name: PrepaymentAmount, resource: /v1/prepayment-amounts, domain: payments, description: A prepayment amount.}
+  - {name: CustomAttribute, resource: /v1/custom-attributes, domain: platform, description: A user-defined attribute definition.}
+  - {name: AggregatedBalance, resource: /v1/aggregated-balances, domain: reporting, description: Aggregated balance figures.}
+  - {name: AggregatedReading, resource: /v1/aggregated-readings, domain: reporting, description: Aggregated reading figures.}
+relationships:
+  - {from: Customer, to: Site, kind: belongs_to, via: siteIds, evidence: webhook envelope siteIds}
+  - {from: Meter, to: Site, kind: belongs_to, via: siteIds, evidence: webhook envelope siteIds}
+  - {from: Contract, to: Site, kind: belongs_to, via: siteIds, evidence: webhook envelope siteIds}
+  - {from: PaymentMethod, to: Site, kind: belongs_to, via: siteIds, evidence: webhook envelope siteIds}
+  - {from: ContractMeter, to: Contract, kind: belongs_to, via: contract, evidence: contract-meters join resource}
+  - {from: ContractMeter, to: Meter, kind: belongs_to, via: meter, evidence: contract-meters join resource}
+  - {from: Invoice, to: LineItem, kind: has_many, via: line-items, evidence: line-items resource}
+  - {from: Invoice, to: InvoiceTemplate, kind: has_one, via: invoiceTemplate, evidence: invoice-templates resource}
+  - {from: PriceComponentGroup, to: PriceComponent, kind: has_many, via: price-components, evidence: pricing resource hierarchy}
+custom_attribute_targets: [Site, Customer, Meter, Contract, PriceComponent]

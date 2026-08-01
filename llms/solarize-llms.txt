@@ -1,0 +1,46 @@
+# Solarize
+
+> Solarize is a German energy software company offering a meter-to-cash billing platform (software-as-a-service) for utilities, municipal utilities (Stadtwerke), and energy providers. It converts metering data into a revenue stream via automated billing, metering-data management, monitoring/reporting, and flexible electricity-product configuration. The REST API is served at https://api.solarize.energy/v1 (JSON over HTTPS, JWT bearer auth, offset/limit pagination, 600 requests/minute).
+
+## APIs
+
+- [Solarize API docs](https://api-docs.solarize.energy/): REST API reference and guides.
+- [API Reference](https://api-docs.solarize.energy/api-reference): full endpoint and schema reference.
+- Base URL: https://api.solarize.energy/v1
+
+## Conventions
+
+- [Authentication](https://api-docs.solarize.energy/authentication): exchange an app-generated API Token at POST /v1/oauth for a short-lived JWT; send `Authorization: Bearer <accessToken>`.
+- [Pagination](https://api-docs.solarize.energy/pagination): `limit` and `offset` query params; responses return `{ data: [...], total: N }`.
+- [Rate Limits](https://api-docs.solarize.energy/rate-limits): 600 calls per minute (rolling 1-minute window).
+- [API Compatibility](https://api-docs.solarize.energy/api-compatibility): unversioned API; breaking changes emailed to API key holders 4 weeks in advance with a migration guide.
+- [Custom Attributes](https://api-docs.solarize.energy/custom-attributes): user-defined fields on Site, Customer, Meter, Contract, and Price Component.
+- [Outgoing Webhooks](https://api-docs.solarize.energy/outgoing-webhooks): entity CRUD and bill-run lifecycle events delivered to a configured endpoint.
+
+## Use cases
+
+- [Customer Onboarding](https://api-docs.solarize.energy/customer-onboarding)
+- [Metered in, Balanced out](https://api-docs.solarize.energy/metered-in-balanced-out)
+- [Submit Measurements](https://api-docs.solarize.energy/submit-measurements)
+- [Create Virtual Meters](https://api-docs.solarize.energy/create-virtual-meters)
+- [Billing](https://api-docs.solarize.energy/billing)
+
+## Resources
+
+- [Website](https://www.solarize.de/en/solution)
+- [Blog](https://www.solarize.de/blog?hsLang=en)
+- [Contact / Support](https://www.solarize.de/en/contact?hsLang=en)
+- [Status](https://solarize.statuspage.io)
+- [App login](https://app.solarize.energy)
+
+## Enrichment artifacts (API Evangelist)
+
+- authentication/solarize-authentication.yml
+- conventions/solarize-conventions.yml
+- rate-limits/solarize-rate-limits.yml
+- lifecycle/solarize-lifecycle.yml
+- asyncapi/solarize-webhooks-asyncapi.yml
+- data-model/solarize-data-model.yml
+- conformance/solarize-conformance.yml
+- security/solarize-domain-security.yml
+- mcp/solarize-mcp.yml

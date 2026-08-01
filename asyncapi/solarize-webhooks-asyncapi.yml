@@ -1,0 +1,146 @@
+generated: '2026-07-21'
+method: searched
+source: https://api-docs.solarize.energy/outgoing-webhooks
+spec_type: AsyncAPI
+x-provenance: >-
+  Faithfully generated from Solarize's documented Outgoing Webhooks event
+  catalog and payload structure. Channel names are the real documented event
+  `type` values; the payload envelope is the documented webhook JSON structure.
+  The per-event `data` object mirrors the corresponding REST entity and is left
+  as a generic object because Solarize documents it as "the data of the affected
+  entity" without a per-event schema.
+asyncapi: 2.6.0
+info:
+  title: Solarize Outgoing Webhooks
+  version: 1.0.0
+  description: >-
+    Outgoing webhooks deliver entity lifecycle and bill-run events to an
+    external endpoint configured in the Solarize app (Settings > Notifications),
+    where the endpoint URL, optional headers, and triggering event types are
+    specified. Each delivery is a JSON POST carrying a common event envelope.
+defaultContentType: application/json
+channels:
+  site.created:
+    subscribe:
+      operationId: onSiteCreated
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  site.updated:
+    subscribe:
+      operationId: onSiteUpdated
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  site.deleted:
+    subscribe:
+      operationId: onSiteDeleted
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  payment_method.created:
+    subscribe:
+      operationId: onPaymentMethodCreated
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  payment_method.updated:
+    subscribe:
+      operationId: onPaymentMethodUpdated
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  payment_method.deleted:
+    subscribe:
+      operationId: onPaymentMethodDeleted
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  contract.created:
+    subscribe:
+      operationId: onContractCreated
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  contract.updated:
+    subscribe:
+      operationId: onContractUpdated
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  contract.deleted:
+    subscribe:
+      operationId: onContractDeleted
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  meter.created:
+    subscribe:
+      operationId: onMeterCreated
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  meter.updated:
+    subscribe:
+      operationId: onMeterUpdated
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  meter.deleted:
+    subscribe:
+      operationId: onMeterDeleted
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  customer.created:
+    subscribe:
+      operationId: onCustomerCreated
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  customer.updated:
+    subscribe:
+      operationId: onCustomerUpdated
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  customer.deleted:
+    subscribe:
+      operationId: onCustomerDeleted
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  bill_run.create_progress:
+    subscribe:
+      operationId: onBillRunCreateProgress
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  bill_run.create_error:
+    subscribe:
+      operationId: onBillRunCreateError
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  bill_run.create_success:
+    subscribe:
+      operationId: onBillRunCreateSuccess
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  bill_run.complete_progress:
+    subscribe:
+      operationId: onBillRunCompleteProgress
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  bill_run.complete_error:
+    subscribe:
+      operationId: onBillRunCompleteError
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  bill_run.complete_success:
+    subscribe:
+      operationId: onBillRunCompleteSuccess
+      message: { $ref: '#/components/messages/WebhookEvent' }
+  bill_run.deleted:
+    subscribe:
+      operationId: onBillRunDeleted
+      message: { $ref: '#/components/messages/WebhookEvent' }
+components:
+  messages:
+    WebhookEvent:
+      name: WebhookEvent
+      title: Solarize webhook event
+      contentType: application/json
+      payload: { $ref: '#/components/schemas/WebhookEnvelope' }
+  schemas:
+    WebhookEnvelope:
+      type: object
+      description: The common envelope delivered for every outgoing webhook event.
+      properties:
+        id:
+          type: string
+          description: Unique id of the event delivery.
+        type:
+          type: string
+          description: The event type, e.g. customer.created.
+        userId:
+          type: string
+          description: Id of the user whose action triggered the event.
+        timestamp:
+          type: string
+          format: date-time
+        accountId:
+          type: string
+        siteIds:
+          type: array
+          items: { type: string }
+          description: Ids of the sites the affected entity belongs to.
+        data:
+          type: object
+          description: >-
+            All properties of the affected entity (shape depends on `type`; for
+            customer.created it is a Customer, etc.).
+      required: [id, type, timestamp, data]

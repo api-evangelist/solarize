@@ -1,0 +1,24 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+generated: '2026-07-21'
+method: searched
+source: https://api-docs.solarize.energy/rate-limits
+provider: Solarize
+providerId: solarize
+created: '2026-07-21'
+modified: '2026-07-21'
+tags:
+  - Rate Limiting
+  - Energy Billing
+description: >-
+  The Solarize API enforces a single global rate limit of 600 calls per minute
+  per client, measured over a rolling 1-minute window. Exceeding the limit
+  results in rate limiting applied to subsequent requests. No per-tier or
+  per-endpoint limits are published.
+limits:
+  - name: All API calls
+    scope: client
+    metric: requests_per_minute
+    limit: 600
+    timeFrame: minute
+    window: rolling

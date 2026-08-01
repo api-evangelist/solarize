@@ -1,20 +1,63 @@
 aid: solarize
 name: Solarize
-description: Solarize is a company surfaced as a portfolio company of point-nine and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Solarize is a German energy software company offering a meter-to-cash
+  billing platform as a software-as-a-service for utilities, municipal
+  utilities (Stadtwerke), and energy providers. The platform converts metering
+  data into a revenue stream through automated billing and invoicing, metering
+  data management, monitoring and reporting, and flexible electricity-product
+  configuration. Solarize exposes a REST API at api.solarize.energy covering
+  customers, sites, meters, contracts, measurements, readings, invoices,
+  payments, pricing, and outgoing webhooks, enabling open-architecture
+  integration with ERP, CRM, and metering-operator systems.
 url: https://raw.githubusercontent.com/api-evangelist/solarize/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://api-docs.solarize.energy/_next/static/media/solarize-api-docs.b9d189f5.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - point-nine
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-provider
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Energy
+- Billing
+- Metering
+- Utilities
+- Meter-to-Cash
+- SaaS
+apis:
+- name: Solarize API
+  description: >-
+    REST API for the Solarize meter-to-cash platform — customers, sites, meters,
+    contracts, measurements, readings, invoices, payments, pricing, and outgoing
+    webhooks. JSON over HTTPS, JWT bearer auth, offset/limit pagination.
+  humanURL: https://api-docs.solarize.energy/
+  baseURL: https://api.solarize.energy/v1
+  tags:
+  - Energy
+  - Billing
+  - Metering
+  properties:
+  - type: Documentation
+    url: https://api-docs.solarize.energy/
+  - type: APIReference
+    url: https://api-docs.solarize.energy/api-reference
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -22,4 +65,51 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://www.solarize.de/en/software
+  url: https://www.solarize.de/en/solution
+- type: DeveloperPortal
+  url: https://api-docs.solarize.energy/
+- type: Documentation
+  url: https://api-docs.solarize.energy/
+- type: APIReference
+  url: https://api-docs.solarize.energy/api-reference
+- type: GettingStarted
+  url: https://api-docs.solarize.energy/customer-onboarding
+- type: Support
+  url: https://www.solarize.de/en/contact?hsLang=en
+- type: Blog
+  url: https://www.solarize.de/blog?hsLang=en
+- type: Login
+  url: https://app.solarize.energy
+- type: Pricing
+  url: https://www.solarize.de/en/solution
+- type: StatusPage
+  url: https://solarize.statuspage.io
+- type: Authentication
+  url: authentication/solarize-authentication.yml
+- type: Conventions
+  url: conventions/solarize-conventions.yml
+- type: RateLimits
+  url: rate-limits/solarize-rate-limits.yml
+- type: Lifecycle
+  url: lifecycle/solarize-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/solarize-lifecycle.yml
+- type: AsyncAPI
+  url: asyncapi/solarize-webhooks-asyncapi.yml
+- type: Webhooks
+  url: asyncapi/solarize-webhooks-asyncapi.yml
+- type: DataModel
+  url: data-model/solarize-data-model.yml
+- type: MCPServer
+  url: mcp/solarize-mcp.yml
+- type: Conformance
+  url: conformance/solarize-conformance.yml
+- type: DomainSecurity
+  url: security/solarize-domain-security.yml
+- type: LLMsTxt
+  url: llms/solarize-llms.txt
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 11
+  pass: local-v1
