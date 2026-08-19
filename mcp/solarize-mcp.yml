@@ -1,29 +1,63 @@
 generated: '2026-07-21'
 method: derived
 status: candidate
-source: >-
-  Candidate tool list derived from the documented Solarize REST resources at
-  https://api-docs.solarize.energy (no OpenAPI is published and Solarize ships
-  no official MCP server). Tools map to documented endpoints under
-  https://api.solarize.energy/v1; this is a proposal, not a published server.
+source: Candidate tool list derived from the documented Solarize REST resources at https://api-docs.solarize.energy
+  (no OpenAPI is published and Solarize ships no official MCP server). Tools map to documented endpoints
+  under https://api.solarize.energy/v1; this is a proposal, not a published server.
 server:
   name: solarize
   transport: http
   url: null
   published: false
 tools:
-  - {name: authenticate, description: Exchange an API token for a JWT access token, source_endpoint: 'POST /v1/oauth'}
-  - {name: list_sites, description: List sites, source_endpoint: 'GET /v1/sites'}
-  - {name: get_site, description: Get a site by id, source_endpoint: 'GET /v1/sites/{id}'}
-  - {name: list_customers, description: List customers, source_endpoint: 'GET /v1/customers'}
-  - {name: get_customer, description: Get a customer by id, source_endpoint: 'GET /v1/customers/{id}'}
-  - {name: list_meters, description: List meters, source_endpoint: 'GET /v1/meters'}
-  - {name: get_meter, description: Get a meter by id, source_endpoint: 'GET /v1/meters/{id}'}
-  - {name: list_contracts, description: List contracts, source_endpoint: 'GET /v1/contracts'}
-  - {name: get_contract, description: Get a contract by id, source_endpoint: 'GET /v1/contracts/{id}'}
-  - {name: list_measurements, description: List measurements, source_endpoint: 'GET /v1/measurements'}
-  - {name: list_readings, description: List readings, source_endpoint: 'GET /v1/readings'}
-  - {name: list_invoices, description: List invoices, source_endpoint: 'GET /v1/invoices'}
-  - {name: list_electricity_products, description: List electricity products, source_endpoint: 'GET /v1/electricity-products'}
-  - {name: list_payments, description: List payments, source_endpoint: 'GET /v1/payments'}
-  - {name: list_aggregated_balances, description: Read aggregated balances, source_endpoint: 'GET /v1/aggregated-balances'}
+- name: authenticate
+  description: Exchange an API token for a JWT access token
+  source_endpoint: POST /v1/oauth
+- name: list_sites
+  description: List sites
+  source_endpoint: GET /v1/sites
+- name: get_site
+  description: Get a site by id
+  source_endpoint: GET /v1/sites/{id}
+- name: list_customers
+  description: List customers
+  source_endpoint: GET /v1/customers
+- name: get_customer
+  description: Get a customer by id
+  source_endpoint: GET /v1/customers/{id}
+- name: list_meters
+  description: List meters
+  source_endpoint: GET /v1/meters
+- name: get_meter
+  description: Get a meter by id
+  source_endpoint: GET /v1/meters/{id}
+- name: list_contracts
+  description: List contracts
+  source_endpoint: GET /v1/contracts
+- name: get_contract
+  description: Get a contract by id
+  source_endpoint: GET /v1/contracts/{id}
+- name: list_measurements
+  description: List measurements
+  source_endpoint: GET /v1/measurements
+- name: list_readings
+  description: List readings
+  source_endpoint: GET /v1/readings
+- name: list_invoices
+  description: List invoices
+  source_endpoint: GET /v1/invoices
+- name: list_electricity_products
+  description: List electricity products
+  source_endpoint: GET /v1/electricity-products
+- name: list_payments
+  description: List payments
+  source_endpoint: GET /v1/payments
+- name: list_aggregated_balances
+  description: Read aggregated balances
+  source_endpoint: GET /v1/aggregated-balances
+deployment:
+  mode: none
+  verified: derived
+  tools: 15
+  checked: '2026-08-12'
+  source: catalog MCP census
