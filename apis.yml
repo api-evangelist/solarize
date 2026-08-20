@@ -40,6 +40,14 @@ tags:
 - Metering
 - Utilities
 - Meter-to-Cash
+- Software-as-a-Service
+tags_raw:
+- Company
+- Energy
+- Billing
+- Metering
+- Utilities
+- Meter-to-Cash
 - SaaS
 apis:
 - name: Solarize API
